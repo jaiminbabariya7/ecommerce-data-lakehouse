@@ -1,0 +1,117 @@
+<svg viewBox="0 0 920 480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="920" height="480" fill="#0d1117" rx="12"/>
+  <text x="460" y="34" text-anchor="middle" font-size="17" font-weight="bold" fill="#e6edf3">E-Commerce Data Lakehouse — ELT + BigQuery + dbt + Analytics</text>
+
+  <!-- Step boxes -->
+  <!-- 1: Source -->
+  <rect x="20" y="55" width="130" height="130" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="85" y="75" text-anchor="middle" font-size="10" fill="#8b949e" font-weight="bold">DATA SOURCE</text>
+  <text x="85" y="94"  text-anchor="middle" font-size="9" fill="#8b949e">generate_data.py</text>
+  <text x="85" y="110" text-anchor="middle" font-size="9" fill="#58a6ff">5,000 customers</text>
+  <text x="85" y="126" text-anchor="middle" font-size="9" fill="#58a6ff">500 products</text>
+  <text x="85" y="142" text-anchor="middle" font-size="9" fill="#58a6ff">50,000 orders</text>
+  <text x="85" y="158" text-anchor="middle" font-size="9" fill="#58a6ff">~150k order items</text>
+  <text x="85" y="176" text-anchor="middle" font-size="9" fill="#6e7681">CSV → GCS landing/</text>
+
+  <line x1="150" y1="120" x2="175" y2="120" stroke="#8b949e" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 2: GCS -->
+  <rect x="175" y="55" width="130" height="130" rx="8" fill="#161b22" stroke="#d29922"/>
+  <text x="240" y="75" text-anchor="middle" font-size="10" fill="#e3b341" font-weight="bold">GCS LANDING</text>
+  <text x="240" y="95"  text-anchor="middle" font-size="9" fill="#8b949e">landing/customers/</text>
+  <text x="240" y="111" text-anchor="middle" font-size="9" fill="#8b949e">landing/products/</text>
+  <text x="240" y="127" text-anchor="middle" font-size="9" fill="#8b949e">landing/orders/</text>
+  <text x="240" y="143" text-anchor="middle" font-size="9" fill="#8b949e">landing/order_items/</text>
+  <text x="240" y="162" text-anchor="middle" font-size="9" fill="#6e7681">GCS → BigQuery</text>
+  <text x="240" y="178" text-anchor="middle" font-size="9" fill="#6e7681">GCSToBigQueryOperator</text>
+
+  <line x1="305" y1="120" x2="330" y2="120" stroke="#8b949e" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 3: BQ Raw -->
+  <rect x="330" y="55" width="130" height="130" rx="8" fill="#161b22" stroke="#ff7b72"/>
+  <text x="395" y="75" text-anchor="middle" font-size="10" fill="#ff7b72" font-weight="bold">BQ RAW LAYER</text>
+  <text x="395" y="95"  text-anchor="middle" font-size="9" fill="#8b949e">ecommerce_raw.customers</text>
+  <text x="395" y="111" text-anchor="middle" font-size="9" fill="#8b949e">ecommerce_raw.products</text>
+  <text x="395" y="127" text-anchor="middle" font-size="9" fill="#8b949e">ecommerce_raw.orders</text>
+  <text x="395" y="143" text-anchor="middle" font-size="9" fill="#8b949e">ecommerce_raw.order_items</text>
+  <text x="395" y="162" text-anchor="middle" font-size="9" fill="#6e7681">WRITE_TRUNCATE daily</text>
+  <text x="395" y="178" text-anchor="middle" font-size="9" fill="#6e7681">Partitioned by date</text>
+
+  <line x1="460" y1="120" x2="485" y2="120" stroke="#8b949e" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 4: dbt -->
+  <rect x="485" y="55" width="130" height="130" rx="8" fill="#161b22" stroke="#238636"/>
+  <text x="550" y="75" text-anchor="middle" font-size="10" fill="#3fb950" font-weight="bold">dbt TRANSFORMS</text>
+  <text x="550" y="95"  text-anchor="middle" font-size="9" fill="#3fb950">staging (views)</text>
+  <text x="550" y="111" text-anchor="middle" font-size="9" fill="#8b949e">stg_customers</text>
+  <text x="550" y="127" text-anchor="middle" font-size="9" fill="#8b949e">stg_orders + stg_products</text>
+  <text x="550" y="143" text-anchor="middle" font-size="9" fill="#e3b341">mart (tables)</text>
+  <text x="550" y="159" text-anchor="middle" font-size="9" fill="#8b949e">fct_orders, dim_customers</text>
+  <text x="550" y="175" text-anchor="middle" font-size="9" fill="#8b949e">dim_products</text>
+
+  <line x1="615" y1="120" x2="640" y2="120" stroke="#8b949e" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 5: Analytics -->
+  <rect x="640" y="55" width="130" height="130" rx="8" fill="#161b22" stroke="#58a6ff"/>
+  <text x="705" y="75" text-anchor="middle" font-size="10" fill="#58a6ff" font-weight="bold">ANALYTICS SQL</text>
+  <text x="705" y="95"  text-anchor="middle" font-size="9" fill="#8b949e">RFM Segmentation</text>
+  <text x="705" y="111" text-anchor="middle" font-size="9" fill="#8b949e">Revenue Trends (MoM/YoY)</text>
+  <text x="705" y="127" text-anchor="middle" font-size="9" fill="#8b949e">Product Performance</text>
+  <text x="705" y="143" text-anchor="middle" font-size="9" fill="#8b949e">Cohort Retention</text>
+  <text x="705" y="162" text-anchor="middle" font-size="9" fill="#6e7681">Window functions</text>
+  <text x="705" y="178" text-anchor="middle" font-size="9" fill="#6e7681">NTILE, LAG, RANK</text>
+
+  <line x1="770" y1="120" x2="795" y2="120" stroke="#8b949e" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 6: BI -->
+  <rect x="795" y="55" width="105" height="130" rx="8" fill="#161b22" stroke="#bc8cff"/>
+  <text x="847" y="75" text-anchor="middle" font-size="10" fill="#bc8cff" font-weight="bold">CONSUMERS</text>
+  <text x="847" y="95"  text-anchor="middle" font-size="9" fill="#8b949e">Looker Studio</text>
+  <text x="847" y="111" text-anchor="middle" font-size="9" fill="#8b949e">Dashboards</text>
+  <text x="847" y="130" text-anchor="middle" font-size="9" fill="#8b949e">Data Science</text>
+  <text x="847" y="146" text-anchor="middle" font-size="9" fill="#8b949e">Notebooks</text>
+  <text x="847" y="165" text-anchor="middle" font-size="9" fill="#8b949e">ML Feature</text>
+  <text x="847" y="178" text-anchor="middle" font-size="9" fill="#8b949e">Engineering</text>
+
+  <!-- Airflow orchestration strip -->
+  <rect x="20" y="220" width="880" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="460" y="240" text-anchor="middle" font-size="11" fill="#58a6ff" font-weight="bold">Apache Airflow — ecommerce_elt_pipeline DAG (daily 05:00 UTC)</text>
+  <text x="460" y="258" text-anchor="middle" font-size="10" fill="#8b949e">start >> [load_customers, load_products, load_orders, load_order_items] >> dbt_run >> dbt_test >> end</text>
+  <text x="460" y="275" text-anchor="middle" font-size="9" fill="#6e7681">GCSToBigQueryOperator (WRITE_TRUNCATE) | BashOperator (dbt run + dbt test) | retry=2 | email_on_failure=True</text>
+
+  <!-- Data model strip -->
+  <rect x="20" y="320" width="880" height="100" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="460" y="340" text-anchor="middle" font-size="11" fill="#e6edf3" font-weight="bold">Star Schema Data Model</text>
+  <rect x="35"  y="352" width="110" height="55" rx="6" fill="#21262d" stroke="#3fb950"/>
+  <text x="90"  y="370" text-anchor="middle" font-size="9" fill="#3fb950" font-weight="bold">fct_orders</text>
+  <text x="90"  y="386" text-anchor="middle" font-size="9" fill="#8b949e">order_id (PK)</text>
+  <text x="90"  y="400" text-anchor="middle" font-size="9" fill="#8b949e">net_revenue, channel</text>
+
+  <rect x="185" y="352" width="120" height="55" rx="6" fill="#21262d" stroke="#58a6ff"/>
+  <text x="245" y="370" text-anchor="middle" font-size="9" fill="#58a6ff" font-weight="bold">dim_customers</text>
+  <text x="245" y="386" text-anchor="middle" font-size="9" fill="#8b949e">RFM + LTV tier</text>
+  <text x="245" y="400" text-anchor="middle" font-size="9" fill="#8b949e">churn_risk</text>
+
+  <rect x="345" y="352" width="120" height="55" rx="6" fill="#21262d" stroke="#58a6ff"/>
+  <text x="405" y="370" text-anchor="middle" font-size="9" fill="#58a6ff" font-weight="bold">dim_products</text>
+  <text x="405" y="386" text-anchor="middle" font-size="9" fill="#8b949e">category, margin_pct</text>
+  <text x="405" y="400" text-anchor="middle" font-size="9" fill="#8b949e">margin_tier</text>
+
+  <rect x="505" y="352" width="120" height="55" rx="6" fill="#21262d" stroke="#d29922"/>
+  <text x="565" y="370" text-anchor="middle" font-size="9" fill="#e3b341" font-weight="bold">fct_order_items</text>
+  <text x="565" y="386" text-anchor="middle" font-size="9" fill="#8b949e">line_revenue</text>
+  <text x="565" y="400" text-anchor="middle" font-size="9" fill="#8b949e">gross_profit</text>
+
+  <rect x="665" y="352" width="220" height="55" rx="6" fill="#21262d" stroke="#bc8cff"/>
+  <text x="775" y="370" text-anchor="middle" font-size="9" fill="#bc8cff" font-weight="bold">Analytics Layer (SQL)</text>
+  <text x="775" y="386" text-anchor="middle" font-size="9" fill="#8b949e">rfm_segmentation | revenue_trends</text>
+  <text x="775" y="400" text-anchor="middle" font-size="9" fill="#8b949e">product_performance | cohort_retention</text>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <text x="460" y="465" text-anchor="middle" font-size="10" fill="#6e7681">Stack: Python 3.11 | Apache Airflow 2.8 | Google Cloud Storage | BigQuery | dbt Core | Star Schema | Window Functions | RFM</text>
+</svg>
