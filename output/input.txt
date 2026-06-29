@@ -1,1 +1,0 @@
-Hello worldThis is a sample text fileWe will use this file to demonstrate word countingCloud Build and Dataproc integration is awesomeThis file contains some sample sentences to analyze
