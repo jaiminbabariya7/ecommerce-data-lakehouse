@@ -2,10 +2,9 @@
 
 ![Airflow](https://img.shields.io/badge/Airflow-2.8-red?logo=apache-airflow)
 ![BigQuery](https://img.shields.io/badge/BigQuery-GCP-blue?logo=google-cloud)
-![dbt](https://img.shields.io/badge/dbt-1.7-orange?logo=dbt)
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 
-End-to-end e-commerce ELT pipeline: synthetic data generation → GCS → BigQuery raw layer → dbt transforms (star schema) → advanced analytics SQL. Covers RFM customer segmentation, monthly/YoY revenue trends, product performance ranking, and cohort retention — all orchestrated by Apache Airflow.
+End-to-end e-commerce ELT pipeline: synthetic data generation → GCS → BigQuery raw layer → advanced analytics SQL. Covers RFM customer segmentation, monthly/YoY revenue trends, product performance ranking, and cohort retention — all orchestrated by Apache Airflow.
 
 ## Architecture
 
@@ -18,10 +17,10 @@ generate_data.py  (5k customers, 500 products, 50k orders)
    └── GCS landing zone  (CSV files)
          └── Airflow GCSToBigQueryOperator
                └── BigQuery ecommerce_raw  (customers, products, orders, order_items)
-                     └── dbt run  (staging views → mart tables)
-                           └── dbt test  (schema + data quality tests)
-                                 └── Analytics SQL  (RFM, trends, cohorts, performance)
+                     └── Analytics SQL  (RFM, trends, cohorts, performance)
 ```
+
+> The Airflow DAG also includes `dbt run` / `dbt test` steps that expect a dbt project at `/opt/airflow/dbt`; that dbt project is not included in this repository.
 
 ## Project Structure
 
@@ -93,7 +92,6 @@ airflow dags trigger ecommerce_elt_pipeline
 | Orchestration | Apache Airflow 2.8 |
 | Storage | Google Cloud Storage |
 | Data Warehouse | Google BigQuery |
-| Transforms | dbt Core 1.7 |
 | Language | Python 3.11 |
 | Analytics | BigQuery SQL (window functions, CTEs) |
-| Data Modelling | Star Schema (fact + dimension tables) |
+| Data Modelling | Relational raw schema (customers, products, orders, order_items) |
