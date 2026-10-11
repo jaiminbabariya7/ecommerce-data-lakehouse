@@ -1,15 +1,18 @@
 [build-system]
 requires = ["setuptools>=68","wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 [project]
-name = "ecommerce-analytics"
+name = "ecommerce-data-lakehouse"
 version = "1.0.0"
-description = "E-commerce analytics pipeline on BigQuery"
+description = "E-commerce ELT on GCS + BigQuery with Airflow: quality checks and analytics tables"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [{name="Jaimin Babariya",email="jaiminbabariya7@gmail.com"}]
-keywords = ["python","bigquery","sql","data-analysis"]
+keywords = ["bigquery", "gcs", "airflow", "sql", "elt"]
+[tool.setuptools]
+packages = []
+
 [project.optional-dependencies]
 dev = ["pytest>=7.4","pytest-cov>=4.1","black>=23.0","flake8>=6.1"]
 [tool.black]
