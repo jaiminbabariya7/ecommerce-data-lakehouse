@@ -1,8 +1,9 @@
 -- 01_create_raw_tables.sql
--- Creates the raw e-commerce tables in BigQuery.
+-- Creates the raw e-commerce tables and the analytics dataset in BigQuery.
 -- Run once before the first Airflow ELT execution.
 
 CREATE SCHEMA IF NOT EXISTS `PROJECT_ID.ecommerce_raw`;
+CREATE SCHEMA IF NOT EXISTS `PROJECT_ID.ecommerce_analytics`;
 
 CREATE OR REPLACE TABLE `PROJECT_ID.ecommerce_raw.customers` (
     customer_id       STRING      NOT NULL,

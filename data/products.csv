@@ -1,51 +1,51 @@
-product_id,product_name,category,price
-de4b2f20-8cd3-4bdf-80fa-59651524549c,Operation,Student,272.11
-228f5017-deca-4340-becd-86bf75697974,Nor,Whole,134.78
-c490c484-e557-4c42-b9b5-fbc90fde3564,Baby,South,473.19
-29b39332-40ef-45bf-81ee-2839ca3b4343,Pay,Parent,466.5
-a8bcf671-933f-4c8e-957f-0a485001ac02,Which,Operation,195.82
-bacbdbdf-e454-41af-81f7-cb4b2ebf1244,Deep,Pressure,281.69
-8fb9ac2e-6ff0-433c-933b-be4de6a96929,Sort,Four,66.55
-830bbba4-f322-4730-bed3-85f9f7c4487b,Certainly,Power,51.71
-97beeea9-8887-4711-aede-49cf58191cca,Bar,Tonight,210.17
-eea5e2d5-f1b1-4453-910b-fb4347c3c140,Site,Blue,393.25
-1d25d50d-9878-454a-9855-560e49fb265b,Allow,Deep,379.47
-c2775e8d-2748-4a95-814a-76da33fc5c32,Fast,Light,54.56
-e07a9e2a-9e47-44eb-a1af-5546880e5785,Contain,Article,253.38
-b76ac9bd-2623-4bca-85e4-0058bccacdc0,Clear,Discover,360.88
-e701e6ad-9c75-4ab6-af08-a713fa5ae9b7,Today,Food,424.07
-d6799ff2-3740-4e77-92ee-c48b4494ad45,Form,Management,207.31
-a345f36d-bda3-4e38-b4c4-7e3a9aeaf07c,Bring,Program,237.12
-9434243a-371f-4b88-8f3a-a8fa4c6d11ca,Back,Nothing,170.28
-a22ccdb9-d439-4ded-93a6-64d87c033938,Particular,Head,426.35
-e5394d39-48cb-45ae-8735-0311a5635172,Central,Apply,56.15
-9f50e7f2-7e6a-411a-8d11-5afc1811aab3,Carry,Everything,457.22
-d39dfee8-7228-4faf-981f-8099785d4345,Wall,Allow,496.21
-32d9dc5d-27f8-42bb-8305-6d5bf3d44d6b,Carry,Recently,47.83
-d4c70cb3-2dab-4dac-9e5e-97385d3fdbf8,While,Our,173.02
-ac7fc824-4373-484f-bab2-4c40f0400a0a,Exist,Star,30.25
-9d5898be-cd4a-46c2-af26-d6c190afc16e,Seem,Health,42.23
-09cf3bf9-8117-40e3-a794-71c056298724,Audience,Sport,279.98
-c7d77e39-332e-40a4-baad-fb574343732b,Better,Travel,499.46
-1b44390c-5040-4812-9727-68661153f062,Project,Idea,342.75
-7c1ca02e-cc1c-4340-b574-fd8bfc7a86ec,Run,View,265.93
-4c489ba3-67be-4747-9e0d-b9a6be43795f,Former,Laugh,168.01
-70d33a1d-c15d-4d95-946f-5ec2ae422784,Approach,Office,151.99
-50f81864-9e16-477d-9c61-b402dd35c7e7,Song,Coach,485.2
-9fd9da26-3d02-456d-b911-26142d310376,From,Police,455.93
-0c244513-3842-40c3-a02e-eefd972787ca,On,Adult,331.08
-debff46f-79fb-4d14-9b22-e0d15e364c88,Ok,However,121.13
-8044e10f-5850-477b-bb0c-a1277b58dbaf,Knowledge,Do,105.52
-cbfaa4c7-33a5-4794-b592-d2463bbbb1cf,Cell,Attention,247.39
-54c4cd51-d0c5-4771-9876-efbca7babc70,Force,Forget,318.99
-562344ce-072b-422a-8ec5-6efd2c9a03fc,Art,Marriage,435.31
-27516423-e285-44df-991c-71c619ea2bb1,Unit,Oil,232.95
-209e25c5-fbee-4e10-b497-3fd1afc45e60,Win,Season,62.87
-623e1db8-c63c-4ef4-a270-77cd11f5bd8c,Inside,Especially,398.44
-2afe81e2-3ab6-4a6b-bf1f-576aff76f87b,One,Customer,112.79
-88363e9d-3bc5-484b-843d-75352ca7f2a3,Recognize,Chair,86.96
-3145d1fc-231c-4c04-b9eb-df0f38bc50af,Behind,Believe,456.75
-8ad30683-611c-4ddf-a519-755e0a1db083,Amount,Hope,221.42
-b627a278-16f0-4abe-b501-10d6cf297b89,Field,Cut,362.72
-8e5bae1b-0f7c-483f-8140-11e168a4eaf5,Painting,Marriage,264.07
-2c03fa0e-2179-4797-a525-6d292dbf590d,Sea,City,307.26
+product_id,product_name,category,unit_price,unit_cost
+4758367b-a649-4cdc-907b-907265e58f34,Smart Gadget 126,Books,289.09,169.21
+c6641285-4303-4bc1-9e25-95b88fc9c86b,Premium Edition 319,Sports,252.03,134.95
+da52d2ee-22bf-48f5-9f65-2a87333ee344,Ultra Edition 276,Food,348.52,261.22
+51d08109-fc90-4838-9874-1408f7b217c7,Classic Gadget 663,Sports,498.64,340.91
+b34191b8-ed65-42b4-b5a5-f8e6b6391f04,Eco Pack 620,Home & Garden,446.21,311.44
+7e7838c9-ca55-438b-bc9a-be10238d6f44,Pro Pack 667,Beauty,65.07,30.61
+161237c9-e25d-49a8-9ca8-a5c42138afe0,Ultra Set 507,Food,236.37,175.87
+20156a72-12e1-43a6-932c-ae01d2c65ee4,Classic Gadget 560,Food,265.22,177.49
+8d2238e6-c7bf-4fbc-943c-dd6de0c1ff1e,Eco Device 543,Electronics,341.65,177.86
+5299e505-2976-4ab2-aa26-f7704ddb1b36,Smart Pack 631,Sports,416.54,242.15
+46426c45-8d03-417a-b4d3-75c1a29319fa,Eco Set 729,Clothing,423.74,206.66
+2bd3cdcd-2779-4685-94a5-3fdef10d27c8,Classic Widget 945,Electronics,253.77,116.49
+a6b07458-43c0-4d43-93a7-4792c561b8dc,Smart Bundle 732,Electronics,45.21,33.09
+4d560a3d-f4e7-469a-a454-09374a27ebf2,Max Kit 924,Toys,251.53,155.82
+6a662fce-7089-4c6d-a877-f5d90f5675f8,Max Edition 308,Beauty,152.23,64.78
+fcef1972-bbf4-43ce-91be-b80eb7e6a14c,Classic Bundle 233,Beauty,305.3,155.52
+44790612-1f5d-488f-b76a-bf093de28859,Max Kit 244,Clothing,259.92,113.63
+3f8ea40a-6b0a-40e3-9d89-6047dd39d793,Eco Pack 691,Beauty,30.05,21.96
+7faeb748-7781-421e-83c5-01cbfef7d9ea,Premium Edition 123,Clothing,98.97,45.11
+95560a2d-3713-4466-bda0-6476f778c676,Classic Widget 151,Sports,472.89,272.81
+4926ce5f-7878-4140-ac2a-4f71a77d95f1,Pro Gadget 541,Books,249.97,177.18
+0b95017c-5dae-4201-a73b-a8bdc38c1dec,Lite Widget 683,Home & Garden,441.82,289.23
+c3affcfe-734a-4ca3-8116-e3fc62e7c1a6,Premium Gadget 231,Clothing,184.45,92.41
+5d986115-f05e-4efe-8ece-112856ce4b42,Eco Kit 716,Toys,199.98,135.63
+cdd0b4d4-5542-47de-b6ad-f48b2314d0c8,Max Edition 252,Books,252.54,105.02
+9dd2f9de-fd98-4e33-a498-abe92999bbef,Premium Pack 619,Food,167.34,102.84
+54cc1e2a-5e4c-4287-8442-51dbd0d4ea67,Ultra Bundle 697,Sports,355.83,179.67
+98cf1188-06d2-4913-a117-3719b023a0ea,Max Set 771,Home & Garden,399.39,261.15
+b89f7039-a107-4c46-8634-17182ba6adb3,Lite Device 941,Home & Garden,362.09,218.79
+70e7e756-04d9-445e-b0d7-3df71c221cea,Classic Bundle 255,Toys,20.63,15.1
+78bb22a5-eba7-42d2-9c89-d374c66495a7,Pro Device 631,Home & Garden,346.8,188.53
+50521700-6077-46a3-8685-abaa7a768555,Eco Edition 645,Beauty,282.64,211.79
+a4afe7bd-ae45-4cc6-b88e-830fde1e994a,Premium Edition 296,Home & Garden,275.41,175.31
+4c3077c4-fb75-4923-b910-abb3f1053252,Premium Kit 806,Food,143.11,72.2
+b8beff3d-cb9f-4f6d-af3a-6f27ef06fccb,Premium Set 224,Toys,161.94,84.55
+cdfb4db9-c5e7-4b23-b461-3f09585abefb,Eco Set 143,Sports,448.4,241.28
+41a64fed-a7ed-48d8-b13f-8f8cec8be537,Max Kit 306,Sports,477.88,204.37
+bdab07e7-9d9d-428e-9bf6-45f623245211,Smart Kit 151,Home & Garden,466.85,300.49
+78ef7666-b7a4-4719-948e-1f6b69ce1e4e,Ultra Device 105,Books,320.78,134.21
+a689b424-7a3a-40e1-b9c7-73a0e0decc3d,Smart Set 428,Sports,206.42,150.12
+3b72c86d-92fa-475f-a6fd-0cb116e6e5c0,Pro Device 527,Books,324.72,233.08
+7ed17aab-c9b7-49bc-a5a1-6fa9d61169a1,Eco Set 997,Electronics,467.29,192.86
+55c551fc-fba5-4cc8-adaf-37661b780ede,Premium Edition 756,Food,9.59,5.74
+315c167a-45d8-46ad-b7d0-359e811414f8,Ultra Pack 266,Food,445.18,198.98
+ca6fbff8-564c-4bd2-bc92-fd81039b058c,Premium Kit 279,Toys,325.9,212.33
+186b2880-ab54-4a15-a69d-01ff1634725b,Eco Device 588,Beauty,414.36,240.47
+c0f63229-725d-4259-bc4b-1eec6231ee73,Premium Pack 409,Electronics,468.23,188.41
+1e43fbd2-aaf4-47f7-8fe7-61493c7e5368,Max Set 263,Toys,134.47,70.71
+4f9c4027-c514-4d98-b41c-504fe346f415,Ultra Set 476,Home & Garden,344.61,249.18
+fd247c11-bf6b-4cdf-b479-7b6127372b52,Classic Bundle 818,Food,113.47,50.69

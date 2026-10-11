@@ -1,8 +1,9 @@
 """
 Synthetic e-commerce data generator.
-Produces realistic customers, products, orders, and order_items CSVs
-for loading into BigQuery. Supports configurable record counts and
-date ranges.
+Produces customers, products, orders, and order_items CSVs for loading
+into BigQuery. Deterministic for a given --seed (IDs included), orders are
+always dated on or after the customer's registration, and each order's
+net_revenue equals the sum of its line_revenue.
 
 Usage:
     python scripts/generate_data.py --customers 5000 --orders 50000 --out data/
@@ -12,7 +13,6 @@ import argparse, csv, os, random, uuid
 from datetime import date, timedelta
 from pathlib import Path
 
-random.seed(42)
 
 COUNTRIES   = ["United States","United Kingdom","Germany","France","Canada","Australia","India","Brazil"]
 CITIES      = {"United States":["New York","Los Angeles","Chicago"],"United Kingdom":["London","Manchester"],"Germany":["Berlin","Munich"],"France":["Paris","Lyon"],"Canada":["Toronto","Vancouver"],"Australia":["Sydney","Melbourne"],"India":["Mumbai","Bangalore"],"Brazil":["São Paulo","Rio"]}
@@ -27,20 +27,25 @@ END_DATE    = date(2024, 12, 31)
 DATE_RANGE  = (END_DATE - START_DATE).days
 
 
-def rand_date() -> date:
-    return START_DATE + timedelta(days=random.randint(0, DATE_RANGE))
+def rand_date(start: date = START_DATE) -> date:
+    return start + timedelta(days=random.randint(0, (END_DATE - start).days))
+
+
+def new_id() -> str:
+    # seeded, so the IDs are reproducible (uuid4() would use os.urandom)
+    return str(uuid.UUID(int=random.getrandbits(128), version=4))
 
 
 def generate_customers(n: int) -> list[dict]:
     rows = []
-    for _ in range(n):
+    for i in range(n):
         country = random.choice(COUNTRIES)
         city    = random.choice(CITIES.get(country, ["Unknown"]))
         rows.append({
-            "customer_id":       str(uuid.uuid4()),
+            "customer_id":       new_id(),
             "first_name":        random.choice(["Alice","Bob","Carol","David","Eve","Frank","Grace","Hank","Iris","Jack"]),
             "last_name":         random.choice(["Smith","Jones","Williams","Brown","Taylor","Davies","Wilson","Evans","Thomas","Roberts"]),
-            "email":             f"user{random.randint(1,99999)}@example.com",
+            "email":             f"user{i + 1}@example.com",
             "country":           country,
             "city":              city,
             "registration_date": str(rand_date()),
@@ -55,7 +60,7 @@ def generate_products(n: int) -> list[dict]:
         unit_price = round(random.uniform(5, 500), 2)
         unit_cost  = round(unit_price * random.uniform(0.4, 0.75), 2)
         rows.append({
-            "product_id":   str(uuid.uuid4()),
+            "product_id":   new_id(),
             "product_name": f"{random.choice(ADJECTIVES)} {random.choice(NOUNS)} {random.randint(100,999)}",
             "category":     random.choice(CATEGORIES),
             "unit_price":   unit_price,
@@ -68,18 +73,18 @@ def generate_orders(n: int, customers: list[dict], products: list[dict]) -> tupl
     orders, items = [], []
     for _ in range(n):
         customer    = random.choice(customers)
-        order_date  = rand_date()
+        order_date  = rand_date(date.fromisoformat(customer["registration_date"]))
         num_items   = random.choices([1,2,3,4,5], weights=[40,30,15,10,5])[0]
         order_items = random.sample(products, k=min(num_items, len(products)))
         net_revenue = 0.0
-        order_id    = str(uuid.uuid4())
+        order_id    = new_id()
         for product in order_items:
             qty      = random.randint(1, 5)
             disc     = round(random.choice([0,0,0,0.05,0.1,0.15,0.2]), 2)
             revenue  = round(product["unit_price"] * qty * (1 - disc), 2)
             net_revenue += revenue
             items.append({
-                "item_id":     str(uuid.uuid4()),
+                "item_id":     new_id(),
                 "order_id":    order_id,
                 "product_id":  product["product_id"],
                 "quantity":    qty,
@@ -116,7 +121,9 @@ if __name__ == "__main__":
     parser.add_argument("--products",  type=int, default=500)
     parser.add_argument("--orders",    type=int, default=50_000)
     parser.add_argument("--out",       default="data")
+    parser.add_argument("--seed",      type=int, default=42)
     args = parser.parse_args()
+    random.seed(args.seed)
 
     print("Generating data...")
     customers = generate_customers(args.customers)

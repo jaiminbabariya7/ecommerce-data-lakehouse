@@ -1,7 +1,6 @@
 -- revenue_trends.sql
--- Monthly and weekly revenue trends with YoY and WoW comparisons.
+-- Monthly revenue with month-over-month and year-over-year growth.
 
--- Monthly revenue + MoM growth
 WITH monthly AS (
     SELECT
         DATE_TRUNC(order_date, MONTH)                       AS month,
@@ -27,15 +26,3 @@ SELECT
                             LAG(revenue, 12) OVER (ORDER BY month)), 1) AS yoy_growth_pct
 FROM monthly
 ORDER BY month;
-
-
--- Revenue by channel + running share
-SELECT
-    channel,
-    ROUND(SUM(net_revenue), 2)                              AS total_revenue,
-    COUNT(DISTINCT order_id)                                AS total_orders,
-    ROUND(100 * SUM(net_revenue) / SUM(SUM(net_revenue)) OVER (), 2) AS revenue_share_pct
-FROM `PROJECT_ID.ecommerce_raw.orders`
-WHERE status IN ("completed","shipped")
-GROUP BY channel
-ORDER BY total_revenue DESC;

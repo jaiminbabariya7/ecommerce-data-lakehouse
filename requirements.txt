@@ -6,10 +6,6 @@ google-cloud-storage==2.13.0
 apache-airflow==2.8.0
 apache-airflow-providers-google==10.13.0
 
-# dbt
-dbt-core==1.7.0
-dbt-bigquery==1.7.0
-
 # Dev
 pytest==7.4.3
 black==23.12.0

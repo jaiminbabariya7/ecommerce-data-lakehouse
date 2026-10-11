@@ -4,7 +4,7 @@
 ![BigQuery](https://img.shields.io/badge/BigQuery-GCP-blue?logo=google-cloud)
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 
-End-to-end e-commerce ELT pipeline: synthetic data generation → GCS → BigQuery raw layer → advanced analytics SQL. Covers RFM customer segmentation, monthly/YoY revenue trends, product performance ranking, and cohort retention — all orchestrated by Apache Airflow.
+End-to-end e-commerce ELT pipeline on synthetic data: generated CSVs → GCS → BigQuery raw layer → data-quality checks → analytics tables. Covers RFM customer segmentation, monthly/YoY revenue trends, channel mix, product performance ranking, and cohort retention, all orchestrated by Apache Airflow.
 
 ## Architecture
 
@@ -13,35 +13,41 @@ End-to-end e-commerce ELT pipeline: synthetic data generation → GCS → BigQue
 ## Pipeline Overview
 
 ```
-generate_data.py  (5k customers, 500 products, 50k orders)
-   └── GCS landing zone  (CSV files)
+generate_data.py  (seeded; sample in data/ = 200 customers, 50 products, 2,000 orders)
+   └── GCS landing zone  (landing/<table>/<table>.csv)
          └── Airflow GCSToBigQueryOperator
                └── BigQuery ecommerce_raw  (customers, products, orders, order_items)
-                     └── Analytics SQL  (RFM, trends, cohorts, performance)
+                     └── Quality checks  (rows loaded, every order has a customer,
+                     │                    every line has an order, order total = sum of lines)
+                     └── Analytics SQL → ecommerce_analytics tables
+                         (rfm_segmentation, revenue_trends, revenue_by_channel,
+                          product_performance, customer_cohort_retention)
 ```
-
-> The Airflow DAG also includes `dbt run` / `dbt test` steps that expect a dbt project at `/opt/airflow/dbt`; that dbt project is not included in this repository.
 
 ## Project Structure
 
 ```
 ecommerce-data-lakehouse/
 ├── scripts/
-│   └── generate_data.py         # Synthetic data generator (configurable scale)
+│   └── generate_data.py         # Synthetic data generator (configurable scale, seeded)
 ├── airflow/
-│   └── dags/ecommerce_elt_dag.py
+│   └── dags/ecommerce_elt_dag.py  # load -> BigQueryCheckOperator checks -> CTAS per SQL file
 ├── sql/
 │   ├── schema/
-│   │   └── 01_create_raw_tables.sql
+│   │   └── 01_create_raw_tables.sql   # raw tables + analytics dataset
 │   └── analytics/
 │       ├── rfm_segmentation.sql         # NTILE-based RFM scoring + segments
 │       ├── revenue_trends.sql           # MoM + YoY revenue with LAG
-│       ├── product_performance.sql      # RANK within category + margin
+│       ├── revenue_by_channel.sql       # channel revenue + share of total
+│       ├── product_performance.sql      # RANK overall and within category + margin
 │       └── customer_cohort_retention.sql
-├── data/                         # Sample CSV files (committed for demo)
+├── tests/
+│   └── test_generate_data.py     # referential integrity, totals, dates, determinism
+├── data/                         # Sample CSV files (generated with `make data`)
 │   ├── customers.csv
 │   ├── products.csv
-│   └── orders.csv
+│   ├── orders.csv
+│   └── order_items.csv
 ├── snapshots/
 │   └── architecture.svg
 ├── .env.example
@@ -54,13 +60,13 @@ ecommerce-data-lakehouse/
 Scores every customer 1–4 on Recency, Frequency, and Monetary value using `NTILE(4)` window functions, then classifies them into segments: Champions, Loyal Customers, At Risk, Hibernating, Lost, etc.
 
 **Revenue Trends** (`sql/analytics/revenue_trends.sql`)
-Monthly revenue with month-over-month and year-over-year growth using `LAG()`. Plus channel revenue breakdown with `SUM() OVER ()` share percentage.
+Monthly revenue with month-over-month and year-over-year growth using `LAG()`. `revenue_by_channel.sql` adds the channel breakdown with a `SUM() OVER ()` share percentage.
 
 **Product Performance** (`sql/analytics/product_performance.sql`)
 Units sold, total revenue, gross profit, and margin per product. `RANK()` within each category to identify top performers.
 
 **Cohort Retention** (`sql/analytics/customer_cohort_retention.sql`)
-Monthly signup cohorts tracked through 12 months of purchase activity. Outputs a retention matrix: % of each cohort still purchasing each month.
+Monthly signup cohorts tracked through 12 months of purchase activity. Outputs a retention matrix: % of each cohort (all active customers who signed up that month) purchasing in each month after signup.
 
 ## Quick Start
 
@@ -68,21 +74,23 @@ Monthly signup cohorts tracked through 12 months of purchase activity. Outputs a
 # 1. Install
 git clone https://github.com/jaiminbabariya7/ecommerce-data-lakehouse.git
 cd ecommerce-data-lakehouse && pip install -r requirements.txt
+cp .env.example .env && set -a && . ./.env && set +a
 
-# 2. Generate synthetic data
+# 2. Use the sample in data/ or generate a bigger dataset
 python scripts/generate_data.py --customers 5000 --orders 50000 --out data/
 
-# 3. Upload to GCS
-gsutil -m cp data/*.csv gs://$GCS_ECOMMERCE_BUCKET/landing/
+# 3. Upload to the GCS landing zone (landing/<table>/<table>.csv)
+make upload
 
-# 4. Create BigQuery raw tables
-bq query --use_legacy_sql=false < sql/schema/01_create_raw_tables.sql
+# 4. Create the raw tables and the analytics dataset
+sed "s/PROJECT_ID/$GCP_PROJECT_ID/g" sql/schema/01_create_raw_tables.sql | bq query --use_legacy_sql=false
 
-# 5. Run the Airflow DAG
+# 5. Run the Airflow DAG (load -> quality checks -> analytics tables)
+#    The DAG reads the SQL files from $SQL_DIR (default /opt/airflow/sql/analytics)
 airflow dags trigger ecommerce_elt_pipeline
 
-# 6. Run analytics queries in BigQuery console
-# Replace PROJECT_ID with your actual project ID
+# 6. Run the tests
+make test
 ```
 
 ## Tech Stack
@@ -94,4 +102,5 @@ airflow dags trigger ecommerce_elt_pipeline
 | Data Warehouse | Google BigQuery |
 | Language | Python 3.11 |
 | Analytics | BigQuery SQL (window functions, CTEs) |
-| Data Modelling | Relational raw schema (customers, products, orders, order_items) |
+| Data Modelling | Relational raw schema (customers, products, orders, order_items) + materialised analytics tables |
+| Testing | pytest (generator) + BigQueryCheckOperator data-quality checks |

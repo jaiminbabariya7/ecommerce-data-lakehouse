@@ -1,5 +1,6 @@
 -- customer_cohort_retention.sql
--- Monthly cohort retention: tracks returning purchase rate for each signup cohort.
+-- Monthly cohort retention: share of each signup cohort (all active customers
+-- who registered that month) that purchased N months after signing up.
 
 WITH cohorts AS (
     SELECT
@@ -26,9 +27,9 @@ cohort_data AS (
     GROUP BY c.cohort_month, months_since_signup
 ),
 cohort_sizes AS (
-    SELECT cohort_month, customers AS cohort_size
-    FROM cohort_data
-    WHERE months_since_signup = 0
+    SELECT cohort_month, COUNT(*) AS cohort_size
+    FROM cohorts
+    GROUP BY cohort_month
 )
 SELECT
     cd.cohort_month,
